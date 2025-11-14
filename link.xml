@@ -1,0 +1,13 @@
+<linker>
+    <assembly fullname="Facebook.Unity.Android" ignoreIfMissing="true">
+        <type fullname="Facebook.Unity.Android.*" preserve="all"/>
+    </assembly>
+    <assembly fullname="Facebook.Unity.IOS" ignoreIfMissing="true">
+        <type fullname="Facebook.Unity.IOS.*" preserve="all"/>
+    </assembly>
+    <assembly fullname="Facebook.Unity.Canvas" ignoreIfMissing="true">
+        <type fullname="Facebook.Unity.Canvas.*" preserve="all"/>
+    </assembly>
+    <assembly fullname="mscorlib" preserve="all"/>
+    <assembly fullname="System.Core" preserve="all"/>
+</linker>

@@ -1,0 +1,24 @@
+{
+  "name": "com.facebook.unity",
+  "displayName": "Facebook Unity SDK",
+  "version": "18.0.0",
+  "unity": "2021.3",
+  "description": "Facebook SDK for Unity v18 - login, sharing, app events.",
+  "keywords": [
+    "facebook",
+    "social",
+    "sdk"
+  ],
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.0"
+  },
+  "scopedRegistries": [
+    {
+      "name": "NuGet",
+      "url": "https://api.nuget.org/v3/index.json",
+      "scopes": [
+        "com.unity.nuget"
+      ]
+    }
+  ]
+}
