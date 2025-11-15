@@ -121,4 +121,4 @@ Full API: [Meta Docs](https://developers.facebook.com/docs/unity/).
 - **UPM Import Hangs**: Delete Library/ > Refresh.
 
 ## License
-MIT © Sorolla Palette Team (forked from Meta).
+MIT © Arthur Scheidel (forked from Meta).
