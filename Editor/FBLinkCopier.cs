@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class FBLinkCopier
 {
-    private const string UPM_ROOT = "Packages/com.facebook.unity";
+    private const string UPM_ROOT = "Packages/facebook-unity-sdk-upm";
     private const string ASSETS_FB_ROOT = "Assets/Facebook";
 
     [InitializeOnLoadMethod]
@@ -21,6 +21,14 @@ public class FBLinkCopier
             File.Copy(upmLink, assetsLink, true);
             AssetDatabase.ImportAsset(assetsLink);
             Debug.Log("FB UPM: Copied link.xml to Assets/Facebook/—IL2CPP stripping fixed. Forcing Resolver.");
+        }
+		else if (!File.Exists(upmLink))
+        {
+            Debug.LogWarning("FB UPM: link.xml missing from UPM package—IL2CPP stripping may occur.");
+        }
+		else if (File.Exists(assetsLink))
+        {
+            Debug.Log("FB UPM: link.xml already exists in Assets/Facebook/—skipping copy.");
         }
 
         // Optional: Trigger EDM for deps (if XML parse needed)
