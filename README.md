@@ -1,11 +1,11 @@
-# Facebook SDK for Unity (UPM) v18.0.0
+# Facebook SDK for Unity (UPM Fork) v18.0.0
 
 [![GitHub stars](https://img.shields.io/github/stars/LaCreArthur/facebook-unity-sdk-upm?style=social)](https://github.com/LaCreArthur/facebook-unity-sdk-upm/stargazers)
-[![OpenUPM](https://img.shields.io/npm/v/com.facebook.unity-sdk?label=OpenUPM&registry=https%3A%2F%2Fpackage.openupm.com)](https://openupm.com/packages/com.facebook.unity-sdk/)
+[![OpenUPM](https://img.shields.io/npm/v/com.lacrearthur.facebook-sdk-for-unity?label=OpenUPM&registry=https%3A%2F%2Fpackage.openupm.com)](https://openupm.com/packages/com.lacrearthur.facebook-sdk-for-unity/)
 
-A UPM-compatible fork of the official [Meta Facebook SDK for Unity v18.0.0](https://developers.facebook.com/docs/unity/downloads).
+A UPM-compatible **fork** of the official [Meta Facebook SDK for Unity v18.0.0](https://developers.facebook.com/docs/unity/downloads) (.unitypackage-based). Optimized for mobile game publishers (e.g., UA attribution with `FB.ActivateApp` for CPI tracking). Supports login, sharing, app events, and gaming services.
 
-**License**: MIT (same as official).
+**License**: [Facebook Platform License](https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/main/LICENSE) (non-exclusive, royalty-free for FB services; see Developer Terms).
 
 ## Features
 - **Core**: FB.Init, ActivateApp (install/session tracking for attribution).
@@ -28,24 +28,24 @@ A UPM-compatible fork of the official [Meta Facebook SDK for Unity v18.0.0](http
 3. Import > Wait for resolution (EDM auto-handles deps).
 
 ### Via OpenUPM (Scoped Registry)
-1. CLI: `openupm add com.facebook.unity-sdk`.
+1. CLI: `openupm add com.lacrearthur.facebook-sdk-for-unity`.
 2. Or add registry to manifest.json:
    ```json
    "scopedRegistries": [
      {
        "name": "OpenUPM",
        "url": "https://package.openupm.com",
-       "scopes": ["com.facebook.unity-sdk"]
+       "scopes": ["com.lacrearthur"]
      }
    ],
    "dependencies": {
-     "com.facebook.unity-sdk": "18.0.0"
+     "com.lacrearthur.facebook-sdk-for-unity": "18.0.0"
    }
    ```
 Refresh Package Manager.
 
 ### Manual (Git Clone)
-- git clone https://github.com/LaCreArthur/facebook-unity-sdk-upm.git Packages/com.facebook.unity-sdk.
+- git clone https://github.com/LaCreArthur/facebook-unity-sdk-upm.git Packages/com.lacrearthur.facebook-sdk-for-unity
 - Refresh Assets.
 
 ### Post-install
@@ -121,4 +121,4 @@ Full API: [Meta Docs](https://developers.facebook.com/docs/unity/).
 - **UPM Import Hangs**: Delete Library/ > Refresh.
 
 ## License
-MIT © Arthur Scheidel (forked from Meta).
+Facebook Platform License © Meta (forked). See Developer Terms: developers.facebook.com/terms.
