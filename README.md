@@ -5,7 +5,7 @@
 
 A UPM-compatible **fork** of the official [Meta Facebook SDK for Unity v18.0.0](https://developers.facebook.com/docs/unity/downloads) (.unitypackage-based). Optimized for mobile game publishers (e.g., UA attribution with `FB.ActivateApp` for CPI tracking). Supports login, sharing, app events, and gaming services.
 
-**License**: [Facebook Platform License](https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/master/LICENSE) (non-exclusive, royalty-free for FB services; see Developer Terms).
+**License**: [Facebook Platform License](https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/master/LICENSE.md) (non-exclusive, royalty-free for FB services; see Developer Terms).
 
 ## Features
 - **Core**: FB.Init, ActivateApp (install/session tracking for attribution).
