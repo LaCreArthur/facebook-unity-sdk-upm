@@ -36,10 +36,6 @@ public class FBLinkCopier
         {
             Debug.LogWarning("FB UPM: link.xml missing from UPM package—IL2CPP stripping may occur.");
         }
-        else if (File.Exists(assetsLink))
-        {
-            Debug.Log("FB UPM: link.xml already exists in Assets/Facebook/—skipping copy.");
-        }
 
         // Optional: Trigger EDM for deps (if XML parse needed)
         TriggerResolvers();
