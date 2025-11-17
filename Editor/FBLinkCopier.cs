@@ -37,4 +37,10 @@ public class FBLinkCopier
             Debug.LogWarning("FB UPM: link.xml missing from UPM package, IL2CPP stripping may occur.");
         }
     }
+
+    private static void TriggerResolvers()
+    {
+        var resolverType = Type.GetType("Google.JarResolver.AndroidResolver, Google.JarResolver");
+        resolverType?.GetMethod("ForceResolve", BindingFlags.Static | BindingFlags.Public)?.Invoke(null, null);
+    }
 }
