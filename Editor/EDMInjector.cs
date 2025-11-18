@@ -1,8 +1,8 @@
 using System;
 using System.IO;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
-using Newtonsoft.Json.Linq;
 
 namespace Facebook.Unity.Editor
 {
@@ -11,7 +11,7 @@ namespace Facebook.Unity.Editor
         private const string EDM_PACKAGE_ID = "com.google.external-dependency-manager";
         private const string EDM_GIT_URL = "https://github.com/googlesamples/unity-jar-resolver.git?path=upm";
 
-        [InitializeOnLoadMethod]
+        //[InitializeOnLoadMethod]
         private static void InjectEDM()
         {
             FBLog.Log("<b>[FB Installer]</b> Checking for Google EDM dependency...");

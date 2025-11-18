@@ -24,14 +24,17 @@
   },
   "documentationUrl": "https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/main/README.md",
   "dependencies": {
+    "com.google.external-dependency-manager": "1.2.179",
     "com.unity.nuget.newtonsoft-json": "3.2.1"
   },
   "scopedRegistries": [
     {
-      "name": "NuGet",
-      "url": "https://api.nuget.org/v3/index.json",
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
       "scopes": [
-        "com.unity.nuget"
+        "com.google.external-dependency-manager",
+        "com.google.ios.resolver",
+        "com.google.jar.resolver"
       ]
     }
   ]
