@@ -1,8 +1,8 @@
 {
   "name": "com.lacrearthur.facebook-sdk-for-unity",
-  "displayName": "Facebook SDK for Unity (UPM Fork)",
+  "displayName": "Facebook SDK for Unity UPM",
   "version": "18.0.0",
-  "unity": "2021.3",
+  "unity": "2022.3",
   "description": "UPM fork of Facebook SDK for Unity v18.0.0. Supports login, sharing, app events, and UA attribution. Based on Meta's .unitypackage.",
   "keywords": [
     "facebook",
@@ -14,7 +14,7 @@
     "analytics"
   ],
   "author": {
-    "name": "LaCreArthur (Forked from Meta)",
+    "name": "LaCreArthur",
     "url": "https://github.com/LaCreArthur/facebook-unity-sdk-upm"
   },
   "license": "Facebook Platform License",
