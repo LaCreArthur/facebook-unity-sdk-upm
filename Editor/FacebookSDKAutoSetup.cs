@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
@@ -18,7 +16,6 @@ public static class FacebookSDKAutoSetup
         {
             CopyLinkXmlIfNeeded();
             CopyFacebookSettingsAssetIfNeeded();
-            EditorApplication.delayCall += FixEdmJavaPathAndResolve; // second delayCall → guarantees EDM is loaded
         };
     }
 
@@ -81,79 +78,5 @@ public static class FacebookSDKAutoSetup
 
         Debug.Log($"<b>[FB SDK Auto-Setup]</b> Copied editable FacebookSettings.asset → {targetPath}\n" +
                   "Go to Assets/Resources/FacebookSettings.asset to enter your App ID & Client Token.");
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    // 3. Fix EDM4U Java path + force resolve (runs after everything else)
-    // ──────────────────────────────────────────────────────────────
-    private static void FixEdmJavaPathAndResolve()
-    {
-        const int maxWaitSeconds = 30;
-        var attempts = 0;
-
-        EditorApplication.update += WaitAndFix;
-
-        void WaitAndFix()
-        {
-            attempts++;
-            var settingsType =
-                Type.GetType("Google.Android.Resolver.AndroidResolverSettings, Google.ExternalDependencyManager");
-            if (settingsType != null)
-            {
-                EditorApplication.update -= WaitAndFix;
-                ApplyJavaFixAndResolve(settingsType);
-                return;
-            }
-
-            if (attempts * EditorApplication.timeSinceStartup > maxWaitSeconds)
-            {
-                EditorApplication.update -= WaitAndFix;
-                Debug.LogWarning("[FB SDK] Timed out waiting for External Dependency Manager to load.");
-            }
-        }
-    }
-
-    private static void ApplyJavaFixAndResolve(Type settingsType)
-    {
-        var instance = settingsType.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null);
-        if (instance == null) return;
-
-        var useJavaHomeProp = settingsType.GetProperty("UseJavaHome");
-        var javaPathProp = settingsType.GetProperty("JavaPath");
-        if (useJavaHomeProp == null || javaPathProp == null) return;
-
-        // Compute Unity's embedded OpenJDK path
-        string internalJdkPath;
-#if UNITY_EDITOR_OSX
-        internalJdkPath =
- Path.GetFullPath(Path.Combine(EditorApplication.applicationContentsPath, "../../PlaybackEngines/AndroidPlayer/OpenJDK"));
-#else
-        internalJdkPath = Path.Combine(EditorApplication.applicationContentsPath,
-            "PlaybackEngines/AndroidPlayer/OpenJDK");
-#endif
-
-        if (!Directory.Exists(internalJdkPath))
-        {
-            Debug.LogWarning(
-                "[FB SDK] Unity's embedded OpenJDK not found. Make sure Android Build Support + OpenJDK is installed.");
-            return;
-        }
-
-        var currentlyUsesJavaHome = (bool)useJavaHomeProp.GetValue(instance);
-        var javaPath = javaPathProp.GetValue(instance) as string;
-        var usesUnityOpenJdk = !string.IsNullOrEmpty(javaPath) &&
-                               javaPath.IndexOf("OpenJDK", StringComparison.OrdinalIgnoreCase) >= 0;
-
-        if (currentlyUsesJavaHome || !usesUnityOpenJdk)
-        {
-            useJavaHomeProp.SetValue(instance, false);
-            javaPathProp.SetValue(instance, internalJdkPath);
-
-            Debug.Log($"<b>[FB SDK Auto-Fix]</b> EDM4U forced to use Unity's embedded OpenJDK:\n{internalJdkPath}");
-        }
-
-        // Finally trigger resolution so everything finishes cleanly
-        var resolverType = Type.GetType("Google.JarResolver.AndroidResolver, Google.JarResolver");
-        resolverType?.GetMethod("ForceResolve", BindingFlags.Static | BindingFlags.Public)?.Invoke(null, null);
     }
 }
