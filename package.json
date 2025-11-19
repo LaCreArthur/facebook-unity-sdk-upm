@@ -25,5 +25,12 @@
   "documentationUrl": "https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/main/README.md",
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Facebook SDK Quick Start",
+      "description": "A quick start sample for the Facebook SDK.",
+      "path": "Samples~/Facebook SDK Quick Start"
+    }
+  ]
 }
