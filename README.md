@@ -3,38 +3,39 @@
 [![GitHub stars](https://img.shields.io/github/stars/LaCreArthur/facebook-unity-sdk-upm?style=social)](https://github.com/LaCreArthur/facebook-unity-sdk-upm/stargazers)
 [![OpenUPM](https://img.shields.io/npm/v/com.lacrearthur.facebook-sdk-for-unity?label=OpenUPM&registry=https%3A%2F%2Fpackage.openupm.com)](https://openupm.com/packages/com.lacrearthur.facebook-sdk-for-unity/)
 
-A UPM-compatible **fork** of the official [Meta Facebook SDK for Unity v18.0.0](https://developers.facebook.com/docs/unity/downloads) (.unitypackage-based). Optimized for mobile game publishers (e.g., UA attribution with `FB.ActivateApp` for CPI tracking). Supports login, sharing, app events, and gaming services.
+A **fixed and modernized** UPM-compatible fork of the official [Meta Facebook SDK for Unity v18.0.0](https://developers.facebook.com/docs/unity/downloads).
 
-**License**: [Facebook Platform License](https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/master/LICENSE.md) (non-exclusive, royalty-free for FB services; see Developer Terms).
+This package solves the "Manifest Merger" and "GameActivity" crashes that plague the official SDK. It includes a **Smart Android Manifest Sanitizer** that automatically patches your build for Android 12+ (API 31) and properly handles the transition between Unity 2022 and Unity 6.
 
-## Features
-- **Core**: FB.Init, ActivateApp (install/session tracking for attribution).
-- **Analytics**: LogAppEvent (custom events, purchases).
-- **Social**: Login, Share (link/feed).
-- **Platforms**: Android/iOS/WebGL (Canvas partial).
-- **Privacy**: ATT consent, SKAdNetwork v4+.
+**License**: [Facebook Platform License](https://github.com/LaCreArthur/facebook-unity-sdk-upm/blob/master/LICENSE.md).
+
+## Why this fork?
+- **Auto-Fixes Android Manifest**: Automatically detects Unity version and applies the correct Activity (`UnityPlayerActivity` vs `UnityPlayerGameActivity`).
+- **Android 12+ Ready**: Automatically injects `android:exported="true"` to prevent crashes on modern devices.
+- **No "Link.xml" Hassle**: Auto-injects preservation rules to prevent IL2CPP stripping.
+- **UPM Native**: clean installation without `.unitypackage` clutter.
 
 ## Requirements
-- Unity 2021.3+ (LTS recommended; tested on 6000.2).
+- **Unity 2022.3 LTS** (Uses legacy `UnityPlayerActivity`).
+- **Unity 6000.x+** (Uses modern `UnityPlayerGameActivity`).
 - Android SDK 34+ (Min API 21).
 - iOS 12+ (Xcode 15+).
-- Meta Developer App (free; create at developers.facebook.com).
 
 ## Installation
 
 ### Via Unity Package Manager (Recommended)
 1. Window > Package Manager > + > Add package from git URL.
 2. Enter: `https://github.com/LaCreArthur/facebook-unity-sdk-upm.git`.
-3. Import > Wait for resolution (EDM auto-handles deps).
+3. Import > Wait for resolution (EDM auto-handles dependencies).
 
-### Via OpenUPM (Scoped Registry)
+### Via OpenUPM
 1. CLI: `openupm add com.lacrearthur.facebook-sdk-for-unity`.
-2. Or add registry to manifest.json:
+2. Or add registry to `Packages/manifest.json`:
    ```json
    "scopedRegistries": [
      {
        "name": "OpenUPM",
-       "url": "https://package.openupm.com",
+       "url": "[https://package.openupm.com](https://package.openupm.com)",
        "scopes": ["com.lacrearthur"]
      }
    ],
@@ -42,14 +43,6 @@ A UPM-compatible **fork** of the official [Meta Facebook SDK for Unity v18.0.0](
      "com.lacrearthur.facebook-sdk-for-unity": "18.0.0"
    }
    ```
-Refresh Package Manager.
-
-### Manual (Git Clone)
-- git clone https://github.com/LaCreArthur/facebook-unity-sdk-upm.git Packages/com.lacrearthur.facebook-sdk-for-unity
-- Refresh Assets.
-
-### Post-install
-Assets > External Dependency Manager > Android Resolver > Force Resolve (Android/iOS deps).
 
 ### Quick Setup
 **Meta App:**
@@ -59,57 +52,18 @@ Assets > External Dependency Manager > Android Resolver > Force Resolve (Android
 **Unity Settings:**
 - Facebook > Edit Settings > Enter App ID, App Name, Client Token.
 - Android: Package Name matches Player Settings (e.g., com.sorolla.test).
-- Generate Key Hashes (requires JDK/OpenSSL in PATH—see Troubleshooting).
+- Generate Key Hashes (requires JDK/OpenSSL in PATH, see Troubleshooting).
 
 **Player Settings (Android):**
 - Package Name: e.g., com.sorolla.test.
 - Min API 21, Target 34, IL2CPP, ARM64.
 - Publishing: Custom Main Manifest (auto-merges FB activities).
 
-**Test Script** (Attach to GameObject):
-```csharp
-using Facebook.Unity;
-using UnityEngine;
-
-public class FBTest : MonoBehaviour
-{
-    void Awake()
-    {
-        if (!FB.IsInitialized) FB.Init(OnInit);
-        else OnInit();
-    }
-
-    void OnInit()
-    {
-        if (FB.IsInitialized) FB.ActivateApp();
-        Debug.Log("FB Ready!");
-    }
-}
-```
-
 **Build & Test:**
 - Build APK > Install on device.
-- Logcat: adb logcat | grep Facebook—expect "Init Success."
+- Logcat: adb logcat | grep Facebook, expect "Init Success."
 - Meta Events Manager > Test Events: fb_mobile_activate_app appears.
 
-## Usage
-
-### Basic Attribution (CPI/UA)
-```csharp
-FB.Init(() => {
-    if (FB.IsInitialized) {
-        FB.ActivateApp();  // Sends install signal
-        FB.LogAppEvent("fb_mobile_level_achieved", new Dictionary<string, object> { {"level", 1} });
-    }
-});
-```
-
-### Login
-```csharp
-FB.LogInWithReadPermissions(new List<string> { "public_profile", "email" }, (result) => {
-    if (FB.IsSuccess(result)) Debug.Log("Logged in!");
-});
-```
 Full API: [Meta Docs](https://developers.facebook.com/docs/unity/).
 
 ## Troubleshooting
