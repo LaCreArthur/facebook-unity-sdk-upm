@@ -15,6 +15,14 @@ This package solves the "Manifest Merger" and "GameActivity" crashes that plague
 - **No "Link.xml" Hassle**: Auto-injects preservation rules to prevent IL2CPP stripping.
 - **UPM Native**: clean installation without `.unitypackage` clutter.
 
+## Versioning Strategy
+To maintain compatibility with the official Meta SDK while allowing for UPM-specific fixes, this package follows this versioning scheme:
+
+`[Facebook Major].[Facebook Minor].[Package Patch]`
+
+* **Major & Minor** (e.g., `18.0`): Strictly match the official [Facebook SDK for Unity](https://developers.facebook.com/docs/unity/) version.
+* **Patch** (e.g., `.1`, `.2`): Indicates updates to this UPM package (e.g., Manifest fixes, Editor scripts, Unity compatibility) without changing the underlying Facebook SDK binaries.
+
 ## Requirements
 - **Unity 2022.3 LTS** (Uses legacy `UnityPlayerActivity`).
 - **Unity 6000.x+** (Uses modern `UnityPlayerGameActivity`).

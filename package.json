@@ -1,7 +1,7 @@
 {
   "name": "com.lacrearthur.facebook-sdk-for-unity",
   "displayName": "Facebook SDK for Unity UPM",
-  "version": "18.0.0",
+  "version": "18.0.1",
   "unity": "2022.3",
   "description": "UPM fork of Facebook SDK for Unity v18.0.0. Supports login, sharing, app events, and UA attribution. Based on Meta's .unitypackage.",
   "keywords": [
