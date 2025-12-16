@@ -9,10 +9,12 @@
         <androidPackage spec="com.facebook.android:facebook-gamingservices:[18.0.0,19)" />
     </androidPackages>
     <iosPods>
-        <iosPod name="FBSDKCoreKit_Basics" version="~> 18.0.0" />
-        <iosPod name="FBSDKCoreKit" version="~> 18.0.0" />
-        <iosPod name="FBSDKLoginKit" version="~> 18.0.0" />
-        <iosPod name="FBSDKShareKit" version="~> 18.0.0" />
-        <iosPod name="FBSDKGamingServicesKit" version="~> 18.0.0" />
+        <!-- Pin to exactly 18.0.1 - version 18.0.2 has broken TournamentUpdater API (GitHub issue #766) -->
+        <!-- addToAllTargets ensures FBAEMKit etc. are embedded in Unity-iPhone (fixes Library not loaded crash) -->
+        <iosPod name="FBSDKCoreKit_Basics" version="18.0.1" addToAllTargets="true" />
+        <iosPod name="FBSDKCoreKit" version="18.0.1" addToAllTargets="true" />
+        <iosPod name="FBSDKLoginKit" version="18.0.1" addToAllTargets="true" />
+        <iosPod name="FBSDKShareKit" version="18.0.1" addToAllTargets="true" />
+        <iosPod name="FBSDKGamingServicesKit" version="18.0.1" addToAllTargets="true" />
     </iosPods>
 </dependencies>
